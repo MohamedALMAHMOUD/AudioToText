@@ -6,17 +6,26 @@ import os
 from pydub import AudioSegment
 from io import BytesIO
 from pydub.utils import which
+import subprocess
+
 
 # Vérifier la présence de FFmpeg et FFprobe
 ffmpeg_path = which("ffmpeg")
 ffprobe_path = which("ffprobe")
 
-if ffmpeg_path and ffprobe_path:
-    os.environ["FFMPEG_BINARY"] = ffmpeg_path
-    os.environ["FFPROBE_BINARY"] = ffprobe_path
-else:
-    raise FileNotFoundError("⚠️ FFmpeg et ffprobe ne sont pas installés ! Ajoutez-les dans packages.txt.")
+if not ffmpeg_path or not ffprobe_path:
+    st.error("❌ FFmpeg et ffprobe ne sont pas installés sur Streamlit Cloud.")
+    st.write("📌 Essayez d'ajouter `ffmpeg` dans `packages.txt` et de redéployer.")
+    
+    # Afficher les paquets système installés (debug)
+    installed_packages = subprocess.run(["apt", "list", "--installed"], capture_output=True, text=True)
+    st.text(installed_packages.stdout)
+    
+    raise FileNotFoundError("⚠️ FFmpeg et ffprobe sont absents !")
 
+# Ajouter les variables d'environnement pour Pydub
+os.environ["FFMPEG_BINARY"] = ffmpeg_path
+os.environ["FFPROBE_BINARY"] = ffprobe_path
 # Vérifier si CUDA est disponible (accélération GPU)
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -75,3 +84,6 @@ if uploaded_file is not None:
             else:
                 st.error("❌ Une erreur est survenue lors de la transcription.")
 
+if st.button("Test FFmpeg"):
+    result = subprocess.run(["ffmpeg", "-version"], capture_output=True, text=True)
+    st.text(result.stdout if result.returncode == 0 else "❌ FFmpeg non trouvé !")
