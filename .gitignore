@@ -1,0 +1,152 @@
+### Fichiers système ###
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+### Fichiers de logs ###
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+### Dépendances ###
+/node_modules
+/.pnp
+.pnp.js
+/vendor
+
+### Environnements virtuels ###
+.venv/
+venv/
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.so
+
+### Compilés ###
+*.out
+*.class
+*.o
+*.lo
+*.la
+*.a
+*.la
+*.so
+*.dll
+*.exe
+
+### IDEs & éditeurs ###
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+
+### Bases de données ###
+*.sqlite
+*.db
+*.mdb
+*.sql
+
+### Configurations sensibles ###
+.env
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+
+### Frameworks Web ###
+/public/build
+/public/storage
+/storage/*.key
+
+### Laravel ###
+/vendor
+/node_modules
+/bootstrap/cache/
+storage/
+.env
+
+### Logs et rapports ###
+*.log
+storage/logs/
+
+### React / Next.js ###
+.next/
+.nuxt/
+
+### Angular ###
+/dist/
+/out-tsc/
+
+### Vue.js ###
+/dist/
+
+### Flutter ###
+/.dart_tool/
+/.flutter-plugins
+/.packages
+/build/
+
+### Android ###
+*.apk
+*.aab
+
+### iOS ###
+Pods/
+*.xcworkspace
+
+### Docker ###
+*.pid
+*.seed
+*.backup
+docker-compose.override.yml
+
+### AWS / Terraform ###
+.terraform/
+*.tfstate*
+
+### JetBrains ###
+*.iml
+/.idea/
+/out/
+
+### Node.js ###
+.npm/
+.yarn/
+.pnp.cjs
+
+### Golang ###
+/bin/
+/pkg/
+
+### Rust ###
+/target/
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+
+### C / C++ ###
+*.exe
+*.dll
+*.dylib
+*.app
+*.pdb
+
+### PHP ###
+/vendor/
+/.phpunit.result.cache
+
+### WordPress ###
+wp-config.php
+/wp-content/uploads/
+
+### Autres ###
+*.swp
+*.swo
+*.swn
