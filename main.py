@@ -84,6 +84,8 @@ if uploaded_file is not None:
             else:
                 st.error("❌ Une erreur est survenue lors de la transcription.")
 
+'''
 if st.button("Test FFmpeg"):
     result = subprocess.run(["ffmpeg", "-version"], capture_output=True, text=True)
-    st.text(result.stdout if result.returncode == 0 else "❌ FFmpeg non trouvé !")
+    st.text(result.stdout if result.returncode == 0 else "❌ FFmpeg non trouvé !")"
+'''
