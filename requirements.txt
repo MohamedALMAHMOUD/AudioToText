@@ -7,4 +7,4 @@ streamlit==1.43.2
 sympy==1.13.3
 tenacity==9.0.0
 torch==2.2.2
-ffmpeg-python
+ffmpeg-python==0.2.0
