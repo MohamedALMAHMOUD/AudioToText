@@ -5,6 +5,17 @@ import tempfile
 import os
 from pydub import AudioSegment
 from io import BytesIO
+from pydub.utils import which
+
+# Vérifier la présence de FFmpeg et FFprobe
+ffmpeg_path = which("ffmpeg")
+ffprobe_path = which("ffprobe")
+
+if ffmpeg_path and ffprobe_path:
+    os.environ["FFMPEG_BINARY"] = ffmpeg_path
+    os.environ["FFPROBE_BINARY"] = ffprobe_path
+else:
+    raise FileNotFoundError("⚠️ FFmpeg et ffprobe ne sont pas installés ! Ajoutez-les dans packages.txt.")
 
 # Vérifier si CUDA est disponible (accélération GPU)
 device = "cuda" if torch.cuda.is_available() else "cpu"
