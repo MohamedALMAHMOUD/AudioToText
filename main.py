@@ -65,22 +65,35 @@ st.write("Téléchargez un fichier audio et obtenez sa transcription en texte.")
 # Choix du modèle Whisper
 model_size = st.selectbox("Choisissez un modèle, un modèle pérformant dit large veut dire plus de temps :", ["tiny", "base", "small", "medium", "large"], index=1)
 
-# Upload fichier audio
-uploaded_file = st.file_uploader("Téléchargez un fichier audio", type=["mp3", "wav", "flac", "m4a", "ogg"])
+# Initialiser le compteur de téléchargements dans la session
+if "upload_count" not in st.session_state:
+    st.session_state.upload_count = -1
 
-if uploaded_file is not None:
-    st.audio(uploaded_file, format='audio/mp3')
+# Vérifier si la limite est atteinte
+if st.session_state.upload_count < 4:
+    # Upload fichier audio
+    uploaded_file = st.file_uploader("Téléchargez un fichier audio", type=["mp3", "wav", "flac", "m4a", "ogg"])
 
-    if st.button("Convertir en texte"):
-        with st.spinner("⏳ Transcription en cours..."):
-            texte = transcribe_audio(uploaded_file, model_size)
-            if texte:
-                st.success("✅ Transcription terminée !")
-                st.subheader("📝 Texte transcrit :")
-                st.write(texte)
+    if uploaded_file is not None:
+        st.audio(uploaded_file, format='audio/mp3')
+        st.success(f"Téléchargement réussi ! ")
 
-                # Ajouter un bouton pour télécharger le texte
-                st.download_button("💾 Télécharger le texte", texte, file_name="transcription.txt", mime="text/plain")
-            else:
-                st.error("❌ Une erreur est survenue lors de la transcription.")
 
+        if st.button("Convertir en texte"):
+            with st.spinner("⏳ Transcription en cours..."):
+                texte = transcribe_audio(uploaded_file, model_size)
+                if texte:
+                    st.success("✅ Transcription terminée !")
+                    st.subheader(f"📝 Texte transcrit :")
+                    st.write(texte)
+                    st.success(f"Il vous reste {3-st.session_state.upload_count} téléchargement")
+
+                    # Ajouter un bouton pour télécharger le texte
+                    st.download_button("💾 Télécharger le texte", texte, file_name="transcription.txt", mime="text/plain")
+                else:
+                    st.error("❌ Une erreur est survenue lors de la transcription.")
+    st.session_state.upload_count += 1  # Incrémenter le compteur
+
+
+else:
+    st.warning("🚫 Vous avez atteint la limite de 2 téléchargements.")
